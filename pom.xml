@@ -3,11 +3,11 @@
   <parent>
     <groupId>org.jenkins-ci.plugins</groupId>
     <artifactId>plugin</artifactId>
-    <version>1.532.1</version><!-- which version of Jenkins is this plugin built against? -->
+    <version>1.609.2</version><!-- which version of Jenkins is this plugin built against? -->
   </parent>
 
   <artifactId>rabbitmq-build-trigger</artifactId>
-  <version>2.4-SNAPSHOT</version>
+  <version>2.4.4-SNAPSHOT</version>
   <packaging>hpi</packaging>
   <name>RabbitMQ Build Trigger Plugin</name>
   <description>A plugin that trigger build by message from RabbitMQ.</description>
@@ -37,6 +37,7 @@
     <junit.version>4.11</junit.version>
     <rabbitmq.consumer.version>2.5</rabbitmq.consumer.version>
     <commons.lang3.version>3.1</commons.lang3.version>
+    <workflow.version>1.11</workflow.version>
   </properties>
 
   <dependencies>
@@ -62,6 +63,32 @@
         <artifactId>commons-lang3</artifactId>
         <version>${commons.lang3.version}</version>
     </dependency>
+
+        <!-- for workflow support -->
+        <dependency>
+            <groupId>org.jenkins-ci.plugins.workflow</groupId>
+            <artifactId>workflow-step-api</artifactId>
+            <version>${workflow.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jenkins-ci.plugins.workflow</groupId>
+            <artifactId>workflow-cps</artifactId>
+            <version>${workflow.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jenkins-ci.plugins.workflow</groupId>
+            <artifactId>workflow-job</artifactId>
+            <version>${workflow.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency> <!-- StepConfigTester -->
+            <groupId>org.jenkins-ci.plugins.workflow</groupId>
+            <artifactId>workflow-step-api</artifactId>
+            <classifier>tests</classifier>
+            <version>${workflow.version}</version>
+            <scope>test</scope>
+        </dependency>
   </dependencies>
 
   <build>
@@ -97,6 +124,7 @@
         <artifactId>maven-hpi-plugin</artifactId>
         <configuration>
           <defaultPort>8091</defaultPort>
+          <pluginFirstClassLoader>true</pluginFirstClassLoader>
         </configuration>
       </plugin>
       <plugin>
